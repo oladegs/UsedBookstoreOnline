@@ -1,0 +1,1 @@
+const UserModel = require('../backend/models/user');
