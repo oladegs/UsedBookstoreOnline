@@ -1,21 +1,18 @@
 // Do not expose your credentials in your code.
-let config = require('./backend/config');
+let config = require("./config");
 
 // Database setup
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-module.exports = function(){
+module.exports = function () {
+  mongoose.connect(config.ATLASDB);
 
-    mongoose.connect(config.ATLASDB);
+  let mongodb = mongoose.connection;
 
-    let mongodb = mongoose.connection;
+  mongodb.on("error", console.error.bind(console, "Connection Error: "));
+  mongodb.once("open", () => {
+    console.log("====> CONNECTION TO DATABASE WAS SUCCESSFULL !! ");
+  });
 
-    mongodb.on('error', 
-        console.error.bind(console, 'Connection Error: '));
-    mongodb.once('open', ()=>{
-        console.log("====> CONNECTION TO DATABASE WAS SUCCESSFULL !! ");
-    })
-
-    return mongodb;
-
-}
+  return mongodb;
+};
