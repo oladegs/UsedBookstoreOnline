@@ -1,37 +1,33 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 let crypto = require("crypto");
 
 /*
 User Model:
-Fields: id, username, email, password (hashed), role (seller or buyer)
+Fields:  user_id,username, email, password (hashed), role (seller or buyer)
 Purpose: Stores user account information for authentication, registration, and role management.
 */
-
-//user schema
-const userSchema = new mongoose.Schema(
+const UserSchema = new Schema(
   {
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-    },
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
+    firstName: String,
+    lastName: String,
     email: {
       type: String,
-      required: true,
       unique: true,
       match: [/.+\@.+\..+/, "Please fill a valid e-mail address"],
     },
-    password: {
+    username: {
+      type: String,
+      unique: true,
+      required: "Username is required",
+      trim: true,
+    },
+    hashed_password: {
       type: String,
       required: "Passowrd is required",
+      // validate: [(password) => {
+      //   return password && password.length > 5;
+      // }, 'Password must be at least 6 characters.']
     },
     salt: {
       type: String,
@@ -49,11 +45,6 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-
-    // Other user attributes
-  },
-  {
-    timestamps: true, // Automatically add "createdAt" and "updatedAt" timestamps
   },
   {
     collection: "user",
@@ -93,7 +84,6 @@ UserSchema.methods.authenticate = function (password) {
 };
 
 // Ensure virtual fields are serialised.
-//The purpose of this code is to control how user data is represented when it's converted to JSON
 UserSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
@@ -103,6 +93,5 @@ UserSchema.set("toJSON", {
     delete ret.salt;
   },
 });
-const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+module.exports = mongoose.model("User", UserSchema);

@@ -5,12 +5,6 @@ Implementing recommendations or featured books on the landing page.
 Actions: landing, home, register, login, itemDetail, checkout, wishlist, myAccount, confirmation.
 */
 let User = require("../models/user");
-let Inventory = require("../models/inventory");
-let Books = require("../models/books");
-let Cart = require("../models/cart");
-let Order = require("../models/order");
-let WishList = require("../models/wishlist");
-
 let config = require("../../config/config");
 let jwt = require("jsonwebtoken");
 let { expressjwt } = require("express-jwt");
