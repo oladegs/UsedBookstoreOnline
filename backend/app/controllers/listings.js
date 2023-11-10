@@ -1,1 +1,0 @@
-const listingModel = require('../backend/models/user');

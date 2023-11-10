@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-var configDB = require('./backend/config/db');
-var app = require('./backend/config/express');
-var debug = require('debug')('Avengers:backend:server');
+var configDB = require('./config/db');
+var app = require('./config/express');
+var debug = require('debug')('comp229006:server');
 var http = require('http');
 
 /**
