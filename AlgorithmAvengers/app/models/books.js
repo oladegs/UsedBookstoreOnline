@@ -12,7 +12,7 @@ const BookSchema = new Schema(
       type: String,
       required: "ISBN is required",
       unique: true,
-      match: [/^\d{13}$/, "Please fill a valid ISBN number"], // Assuming ISBN-13 format
+      match: [/^\d{13}$/, "Please fill a valid ISBN number"], 
     },
     category: {
       type: String,
@@ -29,7 +29,7 @@ const BookSchema = new Schema(
     condition: {
       type: String,
       required: "Condition is required",
-      enum: ["new", "like new", "used", "worn"], // Example condition values
+      enum: ["new", "like new", "used", "worn"], 
     },
     price: {
       type: Number,
@@ -42,8 +42,8 @@ const BookSchema = new Schema(
     },
   },
   {
-    collection: "books", // The name of the collection in the database
-    timestamps: true, // If you want to track when books are created or updated
+    collection: "books",
+    timestamps: true, 
   }
 );
 

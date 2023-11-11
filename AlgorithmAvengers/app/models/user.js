@@ -12,7 +12,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema(
   {
     user_id: {
-      type: mongoose.Types.ObjectId, // or Schema.Types.ObjectId for automatic generation of unique user IDs
+      type: mongoose.Types.ObjectId, 
       index: true,
       required: true,
       auto: true,

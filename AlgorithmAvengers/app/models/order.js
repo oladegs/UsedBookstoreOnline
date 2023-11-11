@@ -10,19 +10,19 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema(
   {
     order_id: {
-      type: mongoose.Types.ObjectId, // or Schema.Types.ObjectId for automatic generation of unique order IDs
+      type: mongoose.Types.ObjectId, 
       index: true,
       required: true,
       auto: true,
     },
     user_id: {
-      type: mongoose.Types.ObjectId, // Reference to the User model's ID
+      type: mongoose.Types.ObjectId, 
       required: true,
       ref: "User",
     },
     status: {
       type: String,
-      enum: ["pending", "completed", "cancelled", "refunded"], // Assuming these are the possible statuses
+      enum: ["pending", "completed", "cancelled", "refunded"], 
       default: "pending",
       required: true,
     },

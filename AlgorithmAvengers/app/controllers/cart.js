@@ -1,18 +1,10 @@
-/*
-CartController:
-
-Responsibilities:
-Managing the shopping cart: Handles adding, removing, and updating items in the shopping cart.
-Displaying the shopping cart: Displays the book details, quantities, and total cost in the shopping cart.
-Actions: addToCart, removeFromCart, updateCart, viewCart.
-*/
-let CartItem = require("../models/cart"); // Assuming the model file is named CartItem.js
+let CartItem = require("../models/cart"); 
 
 // Create a new cart item
 exports.createCartItem = async (req, res) => {
   try {
     const { user_id, isbn, price, quantity } = req.body;
-    const total_price = price * quantity; // You can calculate total price before saving
+    const total_price = price * quantity; 
 
     const newCartItem = new CartItem({
       user_id,

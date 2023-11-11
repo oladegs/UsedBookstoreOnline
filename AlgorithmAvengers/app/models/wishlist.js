@@ -26,7 +26,7 @@ const WishlistSchema = new Schema(
     },
   },
   {
-    collection: "wishlists", // The name of the collection in the database
+    collection: "wishlists", 
     timestamps: true, 
   }
 );

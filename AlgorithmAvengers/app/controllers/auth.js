@@ -1,9 +1,3 @@
-/*
-Responsibilities:
-Handling static pages: Manages the rendering of static pages, including the landing page, homepage, registration/login page, item detail page, checkout page, wishlist page, my account page, and confirmation page.
-Implementing recommendations or featured books on the landing page.
-Actions: landing, home, register, login, itemDetail, checkout, wishlist, myAccount, confirmation.
-*/
 let User = require("../models/user");
 let config = require("../../config/config");
 let jwt = require("jsonwebtoken");

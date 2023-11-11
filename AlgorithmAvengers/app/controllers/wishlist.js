@@ -1,4 +1,4 @@
-const Wishlist = require("../models/wishlist"); // Replace with the correct path to your Wishlist model
+const Wishlist = require("../models/wishlist"); 
 
 // Create a new Wishlist item
 exports.createWishlistItem = async (req, res) => {
@@ -24,7 +24,7 @@ exports.createWishlistItem = async (req, res) => {
 // Retrieve Wishlist items by user
 exports.getWishlistByUser = async (req, res) => {
   try {
-    const { user_id } = req.params; // Ensure the route using this controller uses the param 'user_id'
+    const { user_id } = req.params; 
     const wishlistItems = await Wishlist.find({ user_id: user_id });
     res.status(200).json(wishlistItems);
   } catch (error) {
@@ -38,7 +38,7 @@ exports.getWishlistByUser = async (req, res) => {
 // Delete a Wishlist item
 exports.deleteWishlistItem = async (req, res) => {
   try {
-    const { wishList_id } = req.params; // Ensure the route using this controller uses the param 'wishList_id'
+    const { wishList_id } = req.params; 
     const deletedItem = await Wishlist.findByIdAndDelete(wishList_id);
     if (!deletedItem) {
       return res.status(404).json({ message: "Wishlist item not found" });

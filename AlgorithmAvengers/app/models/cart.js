@@ -38,8 +38,8 @@ const CartItemSchema = new Schema(
     },
   },
   {
-    collection: "cartItems", // The name of the collection in the database
-    timestamps: true, // If you want to track when cart items are created or updated
+    collection: "cartItems", 
+    timestamps: true, 
   }
 );
 

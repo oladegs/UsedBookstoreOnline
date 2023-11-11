@@ -1,14 +1,6 @@
-/*
-UserController:
-
-Responsibilities:
-User registration: Handles user registration, including validating user input, creating user accounts, and securely storing passwords.
-User authentication: Manages user login and logout functionality, verifying user credentials.
-Account management: Allows users to update their account information, change passwords, and manage roles (seller or buyer).
-Actions: register, login, logout, profile, updateProfile, changePassword, manageRoles.
-*/
 let UserModel = require("../models/user");
 
+//create a new user
 module.exports.create = async function (req, res, next) {
   try {
     let newUser = new UserModel(req.body);
@@ -24,6 +16,7 @@ module.exports.create = async function (req, res, next) {
   }
 };
 
+//find user by id
 exports.userByID = async function (req, res, next) {
   try {
     let userId = req.params.userId;
@@ -42,6 +35,7 @@ exports.read = function (req, res) {
   res.json(req.user);
 };
 
+//update user
 exports.update = async (req, res, next) => {
   try {
     let userId = req.params.userId;
@@ -56,7 +50,6 @@ exports.update = async (req, res, next) => {
         message: "User updated sucessfully.",
       });
     } else {
-      // Express will catch this on its own.
       throw new Error("User not updated. Are you sure it exists?");
     }
   } catch (error) {
