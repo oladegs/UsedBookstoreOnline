@@ -1,44 +1,76 @@
-/*
-WishlistController:
+const Wishlist = require('../models/Wishlist'); // Replace with the correct path to your Wishlist model
 
-Responsibilities:
-Adding to wishlist: Handles the addition of books to the user's wishlist.
-Removing from wishlist: Allows users to remove books from their wishlist.
-Viewing wishlist: Displays the books saved in the user's wishlist.
-Actions: addToWishlist, removeFromWishlist, viewWishlist.
-*/
-let WishListModel = require("../models/wishlist");
-exports.addToWishListModel = async function(req, res, next){
-    try{
-        let  newWishListItem = new WishListModel(req.body);
-        
-        let result = await WishListModel.create(newWishListItem);
-        res.json({
-            success : true,
-            message :"Book added to wishlist sucessfully"
+// Create a new Wishlist item
+exports.createWishlistItem = async (req, res) => {
+  try {
+    const wishlistItem = new Wishlist({
+      user_id: req.body.user_id,
+      isbn: req.body.isbn
+    });
 
-        });
-    } catch(error){
-        console.log(error);
-        next(error);
-    }
+    const savedItem = await wishlistItem.save();
+    res.status(201).json({
+      message: 'Wishlist item added successfully',
+      data: savedItem
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Failed to add item to wishlist',
+      error: error.message
+    });
+  }
 };
-exports.removeFromWishlist = async function (req, res, next) {
-    try {
-      let wishlistItemId = req.params.wishlistItemId;
-      let result = await WishListModel.deleteOne({ _id: wishlistItemId });
-      console.log("Result: ", result);
-      if (result.deletedCount > 0) {
-        res.json({
-          success: true,
-          message: "Book removed from wishlist successfully.",
-        });
-      } else {
-        throw new Error("Book not found in the wishlist. Make sure it exists.");
-      }
-    } catch (error) {
-      console.log(error);
-      next(error);
+
+// Retrieve Wishlist items by user
+exports.getWishlistByUser = async (req, res) => {
+  try {
+    const { user_id } = req.params; // Ensure the route using this controller uses the param 'user_id'
+    const wishlistItems = await Wishlist.find({ user_id: user_id });
+    res.status(200).json(wishlistItems);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Failed to get wishlist items',
+      error: error.message
+    });
+  }
+};
+
+// Delete a Wishlist item
+exports.deleteWishlistItem = async (req, res) => {
+  try {
+    const { wishList_id } = req.params; // Ensure the route using this controller uses the param 'wishList_id'
+    const deletedItem = await Wishlist.findByIdAndDelete(wishList_id);
+    if (!deletedItem) {
+      return res.status(404).json({ message: 'Wishlist item not found' });
     }
-  };
-  
+    res.status(200).json({
+      message: 'Wishlist item deleted successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Failed to delete wishlist item',
+      error: error.message
+    });
+  }
+};
+
+
+exports.updateWishlistItem = async (req, res) => {
+  try {
+    const { wishList_id } = req.params;
+    const updates = req.body; 
+    const updatedItem = await Wishlist.findByIdAndUpdate(wishList_id, updates, { new: true });
+    if (!updatedItem) {
+      return res.status(404).json({ message: 'Wishlist item not found' });
+    }
+    res.status(200).json({
+      message: 'Wishlist item updated successfully',
+      data: updatedItem
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Failed to update wishlist item',
+      error: error.message
+    });
+  }
+};
