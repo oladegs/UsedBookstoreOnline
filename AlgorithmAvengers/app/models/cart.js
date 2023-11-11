@@ -9,13 +9,13 @@ const Schema = mongoose.Schema;
 const CartItemSchema = new Schema(
   {
     cart_id: {
-      type: mongoose.Types.ObjectId, // This will automatically generate a unique cart item ID
+      type: mongoose.Types.ObjectId, 
       index: true,
       required: true,
       auto: true,
     },
     user_id: {
-      type: mongoose.Types.ObjectId, // References the User model's ID
+      type: mongoose.Types.ObjectId, 
       required: true,
       ref: "User",
     },

@@ -50,7 +50,7 @@ const UserSchema = new Schema(
     },
   },
   {
-    collection: "users", // assuming you want to name your collection 'users'
+    collection: "users", 
   }
 );
 

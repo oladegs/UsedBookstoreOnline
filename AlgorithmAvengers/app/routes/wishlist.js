@@ -9,6 +9,7 @@ router.post(
     authController.authenticate, 
     wishListController.addToWishlist
   );
+  
 
   router.delete(
     "/wishlist/:wishlistItemId",
