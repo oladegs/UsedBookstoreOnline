@@ -5,10 +5,10 @@ let orderController = require("../controllers/order");
 let authController = require("../controllers/auth");
 
 // Define routes
-router.post("/order", orderController.createOrder);
-router.get("/order/:user_id", orderController.getUserOrders);
-router.put("/order/:order_id", orderController.updateOrderStatus);
-router.delete("/order/:order_id", orderController.deleteOrder);
-router.get("/order/:order_id", orderController.findOrderById);
+router.post("/create", orderController.createOrder);
+router.get("/get/:user_id", orderController.getUserOrders);
+router.put("/update/:order_id", orderController.updateOrderStatus);
+router.delete("/delete/:order_id", orderController.deleteOrder);
+router.get("/find/:order_id", orderController.findOrderById);
 
 module.exports = router;

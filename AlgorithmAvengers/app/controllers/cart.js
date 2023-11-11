@@ -96,6 +96,7 @@ exports.deleteCartItem = async (req, res) => {
 exports.findCartItem = async (req, res) => {
   try {
     const { cart_id } = req.params;
+    console.log('Searching for cart item with ID:', cart_id);
     const cartItem = await CartItem.findById(cart_id);
 
     if (cartItem) {

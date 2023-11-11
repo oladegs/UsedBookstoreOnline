@@ -6,9 +6,9 @@ let authController = require("../controllers/auth");
 
 
 
-router.post('/wishlist', wishlistController.createWishlistItem);
-router.get('/wishlist/:user_id', wishListController.getWishlistByUser);
-router.delete('/wishlist/:wishList_id', wishlistController.deleteWishlistItem);
-router.put('/wishlist/:wishList_id', wishlistController.updateWishlistItem);
+router.post('/create', wishlistController.createWishlistItem);
+router.get('/get/:user_id', wishListController.getWishlistByUser);
+router.delete('/delete/:wishList_id', wishlistController.deleteWishlistItem);
+router.put('/update/:wishList_id', wishlistController.updateWishlistItem);
 
 module.exports = router;
