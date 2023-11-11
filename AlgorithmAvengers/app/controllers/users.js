@@ -24,15 +24,6 @@ module.exports.create = async function (req, res, next) {
   }
 };
 
-exports.list = async function (req, res, next) {
-  try {
-    let list = await UserModel.find({}, "-hashed_password -salt");
-    res.json(list);
-  } catch (error) {
-    next(error);
-  }
-};
-
 exports.userByID = async function (req, res, next) {
   try {
     let userId = req.params.userId;
@@ -86,39 +77,6 @@ module.exports.remove = async (req, res, next) => {
     } else {
       // Express will catch this on its own.
       throw new Error("User not deleted. Are you sure it exists?");
-    }
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-};
-
-module.exports.setAdmin = async function (req, res, next) {
-  try {
-    // Check if the current user is admin. Only admins can set another admin.
-    let authorized = await UserModel.findOne({ _id: req.auth.id }, "admin");
-
-    if (!authorized) {
-      return res.status("403").json({
-        success: false,
-        message: "User is not authorized",
-      });
-    } else {
-      // Update one single field.
-      let result = await UserModel.updateOne(
-        { _id: req.params.userId },
-        { admin: true }
-      );
-      console.log("setAdmin", result);
-      if (result.modifiedCount > 0) {
-        res.json({
-          success: true,
-          message: "User promoted successfully.",
-        });
-      } else {
-        // Express will catch this on its own.
-        throw new Error("User not updated. Are you sure it exists?");
-      }
     }
   } catch (error) {
     console.log(error);

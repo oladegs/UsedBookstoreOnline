@@ -1,26 +1,26 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-let userController = require('../controllers/users');
-let authController = require('../controllers/auth');
+let userController = require("../controllers/users");
+let authController = require("../controllers/auth");
 
-router.post('/signin', authController.signin);
-router.get('/list', userController.list);
-router.post('/create', userController.create);
+router.post("/signin", authController.signin);
 
-router.param('userId', userController.userByID);
-router.get('/get/:userId', userController.read);
-router.put('/edit/:userId',
-    authController.requireSignin,
-    authController.hasAuthorization,
-    userController.update);
-router.delete('/delete/:userId',
-    authController.requireSignin,
-    authController.hasAuthorization,
-    userController.remove);
+router.post("/create", userController.create);
 
-router.put('/setadmin/:userId',
-    authController.requireSignin,
-    userController.setAdmin)
+router.param("userId", userController.userByID);
+router.get("/get/:userId", userController.read);
+router.put(
+  "/edit/:userId",
+  authController.requireSignin,
+  authController.hasAuthorization,
+  userController.update
+);
+router.delete(
+  "/delete/:userId",
+  authController.requireSignin,
+  authController.hasAuthorization,
+  userController.remove
+);
 
 module.exports = router;
