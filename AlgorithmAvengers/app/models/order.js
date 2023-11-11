@@ -37,8 +37,8 @@ const OrderSchema = new Schema(
     },
   },
   {
-    collection: "orders", // Set the name of the collection in the database
-    timestamps: { createdAt: "order_date", updatedAt: false }, // Handle creation date, no need for update field
+    collection: "orders", 
+    timestamps: { createdAt: "order_date", updatedAt: false },
   }
 );
 

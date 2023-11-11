@@ -8,7 +8,7 @@ let User = require("../models/user");
 let Books = require("../models/books");
 let Cart = require("../models/cart");
 let Order = require("../models/order");
-let WishList = require("../models/wishlist");
+let WishList = require('../models/Wishlist');
 
 let config = require("../../config/config");
 let jwt = require("jsonwebtoken");
