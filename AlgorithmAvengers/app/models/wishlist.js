@@ -9,25 +9,25 @@ const Schema = mongoose.Schema;
 const WishlistSchema = new Schema(
   {
     wishList_id: {
-      type: mongoose.Types.ObjectId, // Automatically generated unique identifier for the wishlist item
+      type: mongoose.Types.ObjectId, 
       index: true,
       required: true,
       auto: true,
     },
     user_id: {
-      type: mongoose.Types.ObjectId, // References the User model's ID
+      type: mongoose.Types.ObjectId, 
       required: true,
       ref: "User",
     },
     isbn: {
       type: String,
       required: "ISBN is required",
-      match: [/^\d{10,13}$/, "Please fill a valid ISBN number"], // Supports ISBN-10 or ISBN-13 format
+      match: [/^\d{10,13}$/, "Please fill a valid ISBN number"], 
     },
   },
   {
-    collection: "wishlists", // The name of the collection in the database
-    timestamps: true, // If you want to track when wishlist items are created or updated
+    collection: "wishlists", 
+    timestamps: true, 
   }
 );
 
