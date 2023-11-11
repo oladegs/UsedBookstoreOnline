@@ -2,6 +2,7 @@
 CartItem Model:
 Fields: cart_id, user_id, isbn,price, quantity, total_price
 Purpose: Represents items added to the shopping cart, including the book and the quantity selected.
+
 */
 let mongoose = require("mongoose");
 const Schema = mongoose.Schema;
@@ -9,13 +10,13 @@ const Schema = mongoose.Schema;
 const CartItemSchema = new Schema(
   {
     cart_id: {
-      type: mongoose.Types.ObjectId, 
+      type: mongoose.Types.ObjectId,
       index: true,
       required: true,
       auto: true,
     },
     user_id: {
-      type: mongoose.Types.ObjectId, 
+      type: mongoose.Types.ObjectId,
       required: true,
       ref: "User",
     },
@@ -38,8 +39,8 @@ const CartItemSchema = new Schema(
     },
   },
   {
-    collection: "cartItems", 
-    timestamps: true, 
+    collection: "cartItems",
+    timestamps: true,
   }
 );
 

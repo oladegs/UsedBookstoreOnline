@@ -11,10 +11,8 @@ module.exports = function () {
 
   mongodb.on("error", console.error.bind(console, "Connection Error: "));
   mongodb.once("open", () => {
-    console.log("=> Hi Algorithm Avengers, you're connected to MongoDB  ");
+    console.log("=> Hi Algorithm Avenger, you're connected to MongoDB  ");
   });
 
   return mongodb;
 };
-
-

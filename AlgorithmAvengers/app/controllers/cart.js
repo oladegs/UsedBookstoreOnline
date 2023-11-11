@@ -1,10 +1,10 @@
-let CartItem = require("../models/cart"); 
+let CartItem = require("../models/cart");
 
 // Create a new cart item
 exports.createCartItem = async (req, res) => {
   try {
     const { user_id, isbn, price, quantity } = req.body;
-    const total_price = price * quantity; 
+    const total_price = price * quantity;
 
     const newCartItem = new CartItem({
       user_id,
@@ -43,7 +43,7 @@ exports.updateCartItem = async (req, res) => {
   try {
     const { cart_id } = req.params;
     const { price, quantity } = req.body;
-    const total_price = price * quantity; // Recalculate the total price
+    const total_price = price * quantity;
 
     const updatedCartItem = await CartItem.findByIdAndUpdate(
       cart_id,
@@ -88,7 +88,7 @@ exports.deleteCartItem = async (req, res) => {
 exports.findCartItem = async (req, res) => {
   try {
     const { cart_id } = req.params;
-    console.log('Searching for cart item with ID:', cart_id);
+    console.log("Searching for cart item with ID:", cart_id);
     const cartItem = await CartItem.findById(cart_id);
 
     if (cartItem) {
