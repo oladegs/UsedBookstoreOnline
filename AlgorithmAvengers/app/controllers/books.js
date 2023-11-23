@@ -1,7 +1,7 @@
 let Book = require("../models/books");
 
 // Create a new book
-exports.createBook = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const { isbn, category, title, author, condition, price, description } =
       req.body;
@@ -19,6 +19,7 @@ exports.createBook = async (req, res) => {
     res
       .status(201)
       .json({ message: "Book created successfully", book: newBook });
+      console.log({ isbn, category, title, author, condition, price, description });
   } catch (error) {
     res
       .status(500)

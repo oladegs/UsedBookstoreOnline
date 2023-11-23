@@ -12,7 +12,7 @@ const BookSchema = new Schema(
       type: String,
       required: "ISBN is required",
       unique: true,
-      match: [/^\d{13}$/, "Please fill a valid ISBN number"], 
+       
     },
     category: {
       type: String,
@@ -29,7 +29,7 @@ const BookSchema = new Schema(
     condition: {
       type: String,
       required: "Condition is required",
-      enum: ["new", "like new", "used", "worn"], 
+      enum: ["New", "Like new", "Used", "Worn"], 
     },
     price: {
       type: Number,
