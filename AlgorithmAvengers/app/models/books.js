@@ -12,7 +12,6 @@ const BookSchema = new Schema(
       type: String,
       required: "ISBN is required",
       unique: true,
-       
     },
     category: {
       type: String,
@@ -29,7 +28,7 @@ const BookSchema = new Schema(
     condition: {
       type: String,
       required: "Condition is required",
-      enum: ["New", "Like new", "Used", "Worn"], 
+      enum: ["New", "Like new", "Used", "Worn"],
     },
     price: {
       type: Number,
@@ -43,7 +42,7 @@ const BookSchema = new Schema(
   },
   {
     collection: "books",
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
