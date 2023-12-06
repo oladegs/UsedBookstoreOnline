@@ -3,7 +3,8 @@ let Book = require("../models/books");
 // Create a new book
 exports.create = async (req, res) => {
   try {
-    const { isbn, category, title, author, condition, price, description } =
+    console.log('hellooooooooooooooo', req.body)
+    const { isbn, category, title, author, condition, price, description, expiryDate  } =
       req.body;
     const newBook = new Book({
       isbn,
@@ -13,13 +14,14 @@ exports.create = async (req, res) => {
       condition,
       price,
       description,
+      expiryDate, // Include the expiryDate field here
     });
 
     await newBook.save();
     res
       .status(201)
       .json({ message: "Book created successfully", book: newBook });
-      console.log({ isbn, category, title, author, condition, price, description });
+      console.log({ isbn, category, title, author, condition, price, description, expiryDate  });
   } catch (error) {
     res
       .status(500)
@@ -43,10 +45,10 @@ exports.getAllBooks = async (req, res) => {
 exports.updateBook = async (req, res) => {
   try {
     const { isbn } = req.params;
-    const { category, title, author, condition, price, description } = req.body;
+    const { category, title, author, condition, price, description, expiryDate  } = req.body;
     const updatedBook = await Book.findOneAndUpdate(
       { isbn },
-      { category, title, author, condition, price, description },
+      { category, title, author, condition, price, description, expiryDate  },
       { new: true }
     );
 
