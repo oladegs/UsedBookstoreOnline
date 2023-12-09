@@ -13,13 +13,14 @@ exports.create = async (req, res) => {
       condition,
       price,
       description,
+      postedBy: req.user._id,
     });
 
     await newBook.save();
     res
       .status(201)
       .json({ message: "Book created successfully", book: newBook });
-      console.log({ isbn, category, title, author, condition, price, description });
+      console.log({ isbn, category, title, author, condition, price, description, postedBy });
   } catch (error) {
     res
       .status(500)

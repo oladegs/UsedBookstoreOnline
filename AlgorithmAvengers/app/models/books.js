@@ -39,6 +39,10 @@ const BookSchema = new Schema(
       type: String,
       required: "Description is required",
     },
+    postedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
   },
   {
     collection: "books",
