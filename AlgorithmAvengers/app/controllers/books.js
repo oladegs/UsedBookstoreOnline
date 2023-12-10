@@ -87,3 +87,21 @@ exports.findBookByUserId = async (req, res) => {
     res.status(500).json({ message: "Error fetching user's books", error: error.message });
   }
 };
+
+exports.findBookByISBN = async (req, res) => {
+  try {
+    const { isbn } = req.params;
+    console.log('Received ISBN:', isbn);
+    const book = await Book.findOne({ isbn });
+
+    if (book) {
+      res.status(200).json(book);
+    } else {
+      res.status(404).json({ message: "Book not found for isbn: " + isbn});
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error finding book", error: error.message });
+  }
+};
