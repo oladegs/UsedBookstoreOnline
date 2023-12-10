@@ -19,6 +19,8 @@ exports.create = async (req, res) => {
     });
 
     await newBook.save();
+    console.log('postedBy:', req.body.postedBy);
+
     res
       .status(201)
       .json({ message: "Book created successfully", book: newBook });
@@ -68,20 +70,20 @@ exports.updateBook = async (req, res) => {
 };
 
 
-// Find a book by user ID
+// Find books by user ID
 exports.findBookByUserId = async (req, res) => {
   try {
-    const  userId  = req.user._id;
+    const userId = req.params.userId;
+
+    // Find books posted by the user with the given userId
     const books = await Book.find({ postedBy: userId });
 
-    if (books) {
-      res.status(200).json(books);
-    } else {
-      res.status(404).json({ message: "Books not found" });
+    if (books.length === 0) {
+      return res.status(404).json({ message: "No books found for this user" });
     }
+
+    res.status(200).json({ books });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error finding books", error: error.message });
+    res.status(500).json({ message: "Error fetching user's books", error: error.message });
   }
 };
