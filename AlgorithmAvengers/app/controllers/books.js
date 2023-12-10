@@ -71,7 +71,7 @@ exports.updateBook = async (req, res) => {
 // Find a book by user ID
 exports.findBookByUserId = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const  userId  = req.user._id;
     const books = await Book.find({ postedBy: userId });
 
     if (books) {

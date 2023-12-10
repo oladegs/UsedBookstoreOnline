@@ -7,6 +7,6 @@ let bookController = require("../controllers/books");
 router.post("/create", bookController.create);
 router.get("/get", bookController.getAllBooks);
 router.put("/update/:isbn", bookController.updateBook);
-router.get("/find/:userId", bookController.findBookByUserUd);
+router.get("/find/:userId", bookController.findBookByUserId);
 
 module.exports = router;
