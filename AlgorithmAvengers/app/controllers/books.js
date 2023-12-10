@@ -19,12 +19,10 @@ exports.create = async (req, res) => {
     });
 
     await newBook.save();
-    console.log('postedBy:', req.body.postedBy);
 
     res
       .status(201)
       .json({ message: "Book created successfully", book: newBook });
-      console.log({ isbn, category, title, author, condition, price, description, postedBy,expiryDate, active });
   } catch (error) {
     res
       .status(500)
@@ -48,17 +46,6 @@ exports.getAllBooks = async (req, res) => {
 exports.updateBook = async (req, res) => {
   try {
     const { isbn, category, title, author, condition, price, description, expiryDate, active } = req.body;
-    
-    console.log('Received ISBN:', isbn);
-    console.log('Received Category:', category);
-    console.log('Received Title:', title);
-    console.log('Received Author:', author);
-    console.log('Received Condition:', condition);
-    console.log('Received Price:', price);
-    console.log('Received Description:', description);
-    console.log('Received Expiry Date:', expiryDate);
-    console.log('Received Active:', active);
-
     const updatedBook = {
       isbn,
       category,
@@ -105,7 +92,6 @@ exports.findBookByUserId = async (req, res) => {
 exports.findBookByISBN = async (req, res) => {
   try {
     const { isbn } = req.params;
-    console.log('Received ISBN:', isbn);
     const book = await Book.findOne({ isbn });
 
     if (book) {
