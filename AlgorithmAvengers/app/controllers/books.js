@@ -47,25 +47,39 @@ exports.getAllBooks = async (req, res) => {
 // Update a book
 exports.updateBook = async (req, res) => {
   try {
-    const { isbn } = req.params;
-    const { category, title, author, condition, price, description,expiryDate, active } = req.body;
-    const updatedBook = await Book.findOneAndUpdate(
-      { isbn, postedBy: req.user._id },
-      { category, title, author, condition, price, description, expiryDate, active },
-      { new: true }
-    );
+    const { isbn, category, title, author, condition, price, description, expiryDate, active } = req.body;
+    
+    console.log('Received ISBN:', isbn);
+    console.log('Received Category:', category);
+    console.log('Received Title:', title);
+    console.log('Received Author:', author);
+    console.log('Received Condition:', condition);
+    console.log('Received Price:', price);
+    console.log('Received Description:', description);
+    console.log('Received Expiry Date:', expiryDate);
+    console.log('Received Active:', active);
 
-    if (updatedBook) {
-      res
-        .status(200)
-        .json({ message: "Book updated successfully", book: updatedBook });
-    } else {
-      res.status(404).json({ message: "Book not found or unauthorized" });
+    const updatedBook = {
+      isbn,
+      category,
+      title,
+      author,
+      condition,
+      price,
+      description,
+      expiryDate,
+      active
+    };
+
+    const book = await Book.findOneAndUpdate({ isbn: req.params.isbn }, updatedBook, { new: true });
+
+    if (!book) {
+      return res.status(404).json({ message: "No book found for this ISBN" });
     }
+
+    res.status(200).json({ message: "Book updated successfully", book });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error updating book", error: error.message });
+    res.status(500).json({ message: "Error updating book", error: error.message });
   }
 };
 
