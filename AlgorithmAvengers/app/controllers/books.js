@@ -92,12 +92,12 @@ exports.findBookByUserId = async (req, res) => {
 exports.findBookByISBN = async (req, res) => {
   try {
     const { isbn } = req.params;
-    const book = await Book.findOne({ isbn });
-
+    const book = await Book.findOne({ isbn }).populate('postedBy');
+    console.log(book);
     if (book) {
       res.status(200).json(book);
     } else {
-      res.status(404).json({ message: "Book not found for isbn: " + isbn});
+      res.status(404).json({ message: "Book not found for isbn: " + isbn });
     }
   } catch (error) {
     res
