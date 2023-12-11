@@ -3,8 +3,7 @@ let Book = require("../models/books");
 // Create a new book
 exports.create = async (req, res) => {
   try {
-    console.log('hellooooooooooooooo', req.body)
-    const { isbn, category, title, author, condition, price, description, expiryDate  } =
+ const { isbn, category, title, author, condition, price, description, postedBy, expiryDate, active } =
       req.body;
     const newBook = new Book({
       isbn,
@@ -14,14 +13,16 @@ exports.create = async (req, res) => {
       condition,
       price,
       description,
-      expiryDate, // Include the expiryDate field here
+      postedBy,
+      expiryDate,
+      active
     });
 
     await newBook.save();
+
     res
       .status(201)
       .json({ message: "Book created successfully", book: newBook });
-      console.log({ isbn, category, title, author, condition, price, description, expiryDate  });
   } catch (error) {
     res
       .status(500)
@@ -44,56 +45,59 @@ exports.getAllBooks = async (req, res) => {
 // Update a book
 exports.updateBook = async (req, res) => {
   try {
-    const { isbn } = req.params;
-    const { category, title, author, condition, price, description, expiryDate  } = req.body;
-    const updatedBook = await Book.findOneAndUpdate(
-      { isbn },
-      { category, title, author, condition, price, description, expiryDate  },
-      { new: true }
-    );
+const { isbn, category, title, author, condition, price, description, expiryDate, active } = req.body;
+    const updatedBook = {
+      isbn,
+      category,
+      title,
+      author,
+      condition,
+      price,
+      description,
+      expiryDate,
+      active
+    };
 
-    if (updatedBook) {
-      res
-        .status(200)
-        .json({ message: "Book updated successfully", book: updatedBook });
-    } else {
-      res.status(404).json({ message: "Book not found" });
+    const book = await Book.findOneAndUpdate({ isbn: req.params.isbn }, updatedBook, { new: true });
+
+    if (!book) {
+      return res.status(404).json({ message: "No book found for this ISBN" });
     }
+
+    res.status(200).json({ message: "Book updated successfully", book });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error updating book", error: error.message });
+    res.status(500).json({ message: "Error updating book", error: error.message });
   }
 };
 
-// Delete a book
-exports.deleteBook = async (req, res) => {
+
+// Find books by user ID
+exports.findBookByUserId = async (req, res) => {
   try {
-    const { isbn } = req.params;
-    const deletedBook = await Book.findOneAndDelete({ isbn });
+    const userId = req.params.userId;
 
-    if (deletedBook) {
-      res.status(200).json({ message: "Book deleted successfully" });
-    } else {
-      res.status(404).json({ message: "Book not found" });
+    // Find books posted by the user with the given userId
+    const books = await Book.find({ postedBy: userId });
+
+    if (books.length === 0) {
+      return res.status(404).json({ message: "No books found for this user" });
     }
+
+    res.status(200).json({ books });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error deleting book", error: error.message });
+    res.status(500).json({ message: "Error fetching user's books", error: error.message });
   }
 };
 
-// Find a book by ISBN
 exports.findBookByISBN = async (req, res) => {
   try {
     const { isbn } = req.params;
-    const book = await Book.findOne({ isbn });
-
+    const book = await Book.findOne({ isbn }).populate('postedBy');
+    console.log(book);
     if (book) {
       res.status(200).json(book);
     } else {
-      res.status(404).json({ message: "Book not found" });
+      res.status(404).json({ message: "Book not found for isbn: " + isbn });
     }
   } catch (error) {
     res

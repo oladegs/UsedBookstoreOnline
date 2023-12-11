@@ -39,9 +39,17 @@ const BookSchema = new Schema(
       type: String,
       required: "Description is required",
     },
+    postedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
     expiryDate: {
       type: Date, 
       required: "Expiry date is required",
+    },
+    active: {
+      type: Boolean,
+      default: true,
     },
   },
   {
