@@ -6,22 +6,34 @@ Purpose: Stores user account information for authentication, registration, and r
 
 const mongoose = require("mongoose");
 const crypto = require("crypto");
+const { v4: uuidv4 } = require("uuid"); // Import uuidv4
+
 
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
   {
-    user_id: {
-      type: mongoose.Types.ObjectId,
-      index: true,
-      required: true,
-      auto: true,
-    },
+    // user_id: {
+    //   type: mongoose.Types.ObjectId,
+    //   index: true,
+    //   required: true,
+    //   auto: true,
+    // },
+       userId: {
+         type: String,
+        unique: true,
+        required: true,
+        default: uuidv4, // Generates a UUID by default for new users
+      },
     username: {
       type: String,
       unique: true,
       required: "Username is required",
       trim: true,
+    },
+    profile: {
+      firstName: String,
+      lastName: String,
     },
     email: {
       type: String,
@@ -45,6 +57,22 @@ const UserSchema = new Schema(
       immutable: true,
     },
     updated: {
+      type: Date,
+      default: Date.now,
+    },
+     // Add additional profile fields if needed
+     
+     phoneNumber: String, 
+     
+      address: {
+        street: String,
+        city: String,
+        country: String,
+        postalCode: String,
+        state: String, 
+       
+      },
+    lastLogin: {
       type: Date,
       default: Date.now,
     },
@@ -89,7 +117,7 @@ UserSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
   transform: function (doc, ret) {
-    delete ret._id;
+   delete ret._id;
     delete ret.hashed_password;
     delete ret.salt;
   },

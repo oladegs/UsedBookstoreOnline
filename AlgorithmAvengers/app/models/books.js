@@ -1,6 +1,6 @@
 /*
 Book Model:
-Fields: isbn, category, title, author, condition, price, description
+Fields: isbn, category, title, author, condition, price, description, expiryDate
 Purpose: Represents details of each book listing, including title, author, condition, price, and seller information.
 */
 let mongoose = require("mongoose");

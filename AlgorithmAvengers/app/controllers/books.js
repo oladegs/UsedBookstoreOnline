@@ -3,7 +3,7 @@ let Book = require("../models/books");
 // Create a new book
 exports.create = async (req, res) => {
   try {
-    const { isbn, category, title, author, condition, price, description, postedBy, expiryDate, active } =
+ const { isbn, category, title, author, condition, price, description, postedBy, expiryDate, active } =
       req.body;
     const newBook = new Book({
       isbn,
@@ -45,7 +45,7 @@ exports.getAllBooks = async (req, res) => {
 // Update a book
 exports.updateBook = async (req, res) => {
   try {
-    const { isbn, category, title, author, condition, price, description, expiryDate, active } = req.body;
+const { isbn, category, title, author, condition, price, description, expiryDate, active } = req.body;
     const updatedBook = {
       isbn,
       category,
