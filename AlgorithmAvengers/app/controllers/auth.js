@@ -10,9 +10,15 @@ module.exports.signin = async function (req, res, next) {
     if (!user.authenticate(req.body.password))
       throw new Error("Email and/or password don't match.");
 
+    // Update lastLogin before issuing the token
+    user.lastLogin = new Date(); // Set the lastLogin field to the current date and time
+    await user.save(); // Save the updated user data
+
+
     // Issue the token
     let payload = {
       id: user._id,
+      userId:user.userId,
       username: user.username,
     };
 
@@ -25,6 +31,7 @@ module.exports.signin = async function (req, res, next) {
     return res.json({
       success: true,
       token: token,
+      user: payload,
     });
   } catch (error) {
     console.log(error);

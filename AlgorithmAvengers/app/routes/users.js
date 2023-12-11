@@ -8,16 +8,17 @@ router.post("/signin", authController.signin);
 
 router.post("/create", userController.create);
 
-router.param("userId", userController.userByID);
-router.get("/get/:userId", userController.read);
+//router.param("UserId", userController.UserId);
+router.get("/getUserByUserId/:userId", authController.requireSignin, userController.getUserByUserId);
+router.get("/get/:id", userController.read);
 router.put(
-  "/edit/:userId",
+  "/edit/:id",
   authController.requireSignin,
   authController.hasAuthorization,
-  userController.update
+  userController.edit
 );
 router.delete(
-  "/delete/:userId",
+  "/remove/:userId",
   authController.requireSignin,
   authController.hasAuthorization,
   userController.remove
