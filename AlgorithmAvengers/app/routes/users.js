@@ -17,8 +17,8 @@ router.get(
 router.get("/get/:id", userController.read);
 router.put(
   "/edit/:userId",
-  authController.requireSignin,
-  authController.hasAuthorization,
+  
+  
   userController.updateUser
 );
 router.delete(

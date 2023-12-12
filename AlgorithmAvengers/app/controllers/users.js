@@ -51,7 +51,7 @@ exports.updateUser = async (req, res) => {
     const updatedData = req.body;
 
     const updatedUser = await User.findOneAndUpdate(
-      { _id: userId },
+      { userId: userId },
       updatedData,
       { new: true }
     );
