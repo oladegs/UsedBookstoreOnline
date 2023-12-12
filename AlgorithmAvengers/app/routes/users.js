@@ -19,7 +19,7 @@ router.put(
   "/edit/:userId",
   authController.requireSignin,
   authController.hasAuthorization,
-  userController.edit
+  userController.updateUser
 );
 router.delete(
   "/remove/:userId",
