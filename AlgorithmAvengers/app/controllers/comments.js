@@ -4,7 +4,7 @@ let Comment = require("../models/comments");
 // Create a new comment
 exports.create = async (req, res) => {
     try {
-        const { isbn, user, comment, comment_id } =
+        const { isbn, user, comment } =
             req.body;
 
         const newComment = new Comment({
